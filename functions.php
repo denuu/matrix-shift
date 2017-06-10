@@ -1,7 +1,7 @@
 <?php
 
 	// The QWERTY matrix used for encoding
-	$matrix = [
+	const MATRIX = [
 		['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
 		['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
 		['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';'],
@@ -13,33 +13,25 @@
 	*/
 	function findPosition($char) {
 
-		foreach ($matrix as $ikey => $m) {
+		foreach (MATRIX as $ikey => $m) {
 
 			// Search for the char in this array, get j (column) position
-			$j = array_search($char, $m);
+			$j = array_search($char, $m, TRUE);
 
 			// If the char was found...
 			if ($j) {
 
 				$i = $ikey;
 
-				// Stop search
-				break;
+				// Position of the character in the MATRIX
+				return [
+					'i'	=> $i,
+					'j' => $j
+				];
 
 			}
-
 		}
-
-		// If character not in matrix, leave it alone
-		if (!$j) {
-			return false;
-		}
-
-		// Position of the character in the matrix
-		return [
-			'i'	=> $i,
-			'j' => $j
-		];
+		return false;
 
 	}
 
@@ -52,18 +44,16 @@
 			return '';
 		}
 
+		$string = strtolower($string);
 		$encoded = '';	// Encoded string;
 		$cache = [];	// Array to store conversions, save cycles
-		$raw = explode(',', $string);	// Convert unencoded string to array of characters
-
+		$raw = str_split($string);	// Convert unencoded string to array of characters
 		foreach ($raw as $r) {
 
-			$inChache = array_search($r, $cache);
-
-			if ($inCache) {
+			if (isset($cache[$r])) {
 
 				// If character in cache, get conversion
-				$char = $cache[$inCache];
+				$char = $cache[$r];
 
 			} else {
 
@@ -74,14 +64,14 @@
 				}
 
 				// Save character conversion
-				$cache[$raw] = $char;
+				$cache[$r] = $char;
 
 			}
 
 			// Add new char to encoded string
 			$encoded .= $char;
 		}
-
+		echo print_r($cache, true);
 		return $encoded;
 
 	}
@@ -104,16 +94,17 @@
 
 		if (!$pos) {
 
-			// Character not in matrix, remains the same
+			// Character not in MATRIX, remains the same
 			$char = $r;
 
 		} else {
 
 			// Flip j in (i, j) - new j = row arr length minus position of j
-			$j = count($matrix[$pos['i']]) - ($pos['j'] + 1);
+			$i = $pos['i'];
+			$j = count(MATRIX[$i]) - ($pos['j'] + 1);
 
 			// Get char at new position
-			$char = $matrix[$i][$j];
+			$char = MATRIX[$i][$j];
 
 		}
 
@@ -132,23 +123,25 @@
 	* @param	str	$r	character to encode
 	* @return	str		Encoded character result
 	*/
-	function verticalFlip ($string) {
+	function verticalFlip ($r) {
 
 		// Find position
 		$pos = findPosition($r);
+		$caps = false;
 
 		if (!$pos) {
 
-			// Character not in matrix, remains the same
+			// Character not in MATRIX, remains the same
 			$char = $r;
 
 		} else {
 
 			// Flip only i in (i, j)
-			$i = (count($matrix) - 1) - $pos['i'];
+			$j = $pos['j'];
+			$i = (count(MATRIX) - 1) - $pos['i'];
 
 			// Get char at new position
-			$char = $matrix[$i][$j];
+			$char = MATRIX[$i][$j];
 
 		}
 
@@ -169,21 +162,6 @@
 	function shiftString ($string, $n) {
 		// $n = $n % 40;
 		// if $n % 40 == 0 string stays the same
-	}
-
-	// Perform the requested encoding on the passed string
-	if ($action == 'hFlip') {
-
-		$encoded = horizontalFlip($string);
-
-	} elseif ($action == 'vFlip') {
-
-		$encoded = verticalFlip($string);
-
-	} elseif ($action == 'shift') {
-
-		$encoded = shiftString($string, $n);
-
 	}
 
 ?>
