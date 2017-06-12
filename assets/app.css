@@ -1,0 +1,97 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    width: 100vw;
+    height: 100vh;
+    background: #242735;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    color: #D1D2D4;
+    size: 1.5em;
+}
+
+.card {
+    padding: 1em;
+    background: #2C3041;
+    border: none;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 1px 7px 3px;
+}
+
+#input-bar {
+    margin-left: calc((100vw - 70vw) / 2);
+    margin-top: 5vh;
+    width: 70vw;
+    height: 50vh;
+    min-height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border: 1px solid #24D3EB !important;
+}
+
+#input {
+    width: 100%;
+    height: calc(100% - 1em);
+    resize: vertical;
+}
+
+input, textarea {
+    font-family: 'Roboto Mono', monospace;
+    background: #242735;
+    color: #24D3EB;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+#button-bar {
+    text-align: center;
+    width: calc(70vw);
+    margin-left: calc(30vw / 2);
+    margin-top: 15px;
+}
+
+button {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    background: #E75267;
+    padding: 1em;
+    border-radius: 3px;
+}
+
+button:focus {
+    outline: none;
+    border: 1px solid #24D3EB !important;
+}
+
+#offset {
+    border: 1px solid transparent;
+    padding: 1em;
+    border-radius: 3px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+.footer-text {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    color: #E75267;
+    font-size: 0.5em
+}

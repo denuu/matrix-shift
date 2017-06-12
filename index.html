@@ -1,31 +1,70 @@
 <!DOCTYPE html>
-<?php include 'functions.php' ?>
 
 <html>
     <head>
-
-    </head>
+        <script src="assets/jquery-3.2.1.min.js"></script>
+        <link href="assets/app.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab:400,700" rel="stylesheet">
     <body>
 
-        <div id="input-bar">
-            <input type="text" placeholder="Text to encode"/>
-            <button type="button" href='functions.php?action=hFlip'>
+        <div class="title">
+            <h1>QWERTY encoder</h1>
+        </div>
+
+        <div id="input-bar" class="card">
+            <textarea id="input" type="text" placeholder="Text to encode" name="input"></textarea>
+        </div>
+
+        <div id="button-bar" class="card">
+            <button id="horizontal" type="button">
                 Horizontal Flip
             </button>
-            <button type="button" href='functions.php?action=vFlip'>
+            <button id="vertical" type="button">
                 Vertical Flip
             </button>
-            <button type="button" href='functions.php?action=shift'>
-                Shift
+            <button id="shift" type="button">
+                Shift by
             </button>
+            <input id="offset" type="number" placeholder="Offset integer" name="input"/>
         </div>
 
         <div>
             <!-- ENCODED TEXT HERE -->
+
         </div>
 
     </body>
     <footer>
-
+        <p class='footer-text'>
+            Denis Nossevitch 2017
+        </p>
     </footer>
+
+    <script>
+    $(function() {
+
+        $('button').click(function() {
+
+            var action = $(this).attr('id');
+            var string = $('#input').val();
+            var offset = $('#offset').val();
+
+            $.ajax({
+                type: "POST",
+                url: "functions.php",
+                data: {
+                    action: action,
+                    string: string,
+                    offset: offset
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#input').val(data);
+                }
+            });
+
+        });
+
+    });
+    </script>
 </html>
