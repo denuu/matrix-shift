@@ -204,6 +204,7 @@
 
 		// Get position, if character not in matrix return it as is
 		$pos = findPosition($r);
+		$char = '';
 		if (!$pos) {
 			return $r;
 		}
@@ -230,7 +231,7 @@
 			// Number of steps to end of row
 			$rem = count(MATRIX[$pos['i']]) - ($pos['j'] + 1);
 
-			if ($rem > $n) {
+			if ($rem >= $n) {
 
 				// Shift contained within this row, j increases by n
 				$j = $pos['j'] + $n;
