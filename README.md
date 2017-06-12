@@ -1,4 +1,4 @@
-# KEYBOARD TEXT ENCODING
+# Keyboard Text Encoder
 
 Using a 4 * 10 matrix of keys from a QWERTY keyboard, this program
 encodes provided text by flipping characters horizontally, vertically,
